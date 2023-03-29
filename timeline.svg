@@ -41,9 +41,9 @@
 	.st1{fill:none;stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
 	.st2{fill:none;}
 	.st3{fill:#D5D5D5;}
-	.st4{font-family:'ProximaNova-Regular';}
+	.st4{font-family:ProximaNova, sans-serif;}
 	.st5{font-size:12px;}
-	.st6{font-family:'ProximaNova-Bold';}
+	.st6{font-family:ProximaNova, sans-serif; font-weight: bold}
 	.st7{font-size:29px;}
 	.st8{fill:none;stroke:#D5D5D5;stroke-width:3;stroke-miterlimit:10;}
 	.st9{fill:#E76262;}
