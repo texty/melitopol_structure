@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Як окупанти вибудовують владну вертикаль у Мелітополі</title>
+
+     <!-- OpenGraph Meta Tags -->
+     <meta property="fb:app_id" content=""/>
+     <meta property="og:site_name" content="Запорізький центр розслідувань"/>
+     <meta property="og:type" content="website"/>
+     <meta property="og:title"
+         content="Як окупанти вибудовують владну вертикаль у Мелітополі"/>
+     <meta property="og:image" content="https://incentre.zp.ua/melitopol-dataproject/img/cover2.jpg"/>
+     <meta property="og:description"
+         content="Важливу роль у становленні окупаційної влади там відіграв місцевий депутат облради Євгеній Балицький. Але на ключові посади росіяни привезли своїх кандидатів"/>
+     <meta property="og:url" content="https://incentre.zp.ua/melitopol-dataproject"/>
+ 
+ 
+     <!-- Twitter Card Meta Tags -->
+     <meta name="twitter:card" content="summary_large_image"/>
+     <meta name="twitter:url" content="https://incentre.zp.ua/melitopol-dataproject">
+     <meta name="twitter:title"
+         content="Як окупанти вибудовують владну вертикаль у Мелітополі"/>
+     <meta name="twitter:description"
+         content="Важливу роль у становленні окупаційної влади там відіграв місцевий депутат облради Євгеній Балицький. Але на ключові посади росіяни привезли своїх кандидатів"/>
+     <meta name="twitter:image:width" content="1200"/>
+     <meta name="twitter:image:height" content="630"/>
+ 
+ 
+     <!-- Other Meta Tags -->
+     <meta name="title" content="Як окупанти вибудовують владну вертикаль у Мелітополі">
+     <meta name="description" content="Важливу роль у становленні окупаційної влади там відіграв місцевий депутат облради Євгеній Балицький. Але на ключові посади росіяни привезли своїх кандидатів">
+ 
+
+    <script src="libs/d3v5.min.js"></script>
+    <script src="libs/jquery-1.11.1.js"></script>
+    <script src="libs/scrollama.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+    /* Header style */
+    .share-article {
+        width: max-content;
+        position: fixed;
+        top:10px;
+        right:20px;
+        display: flex;
+
+    }
+
+    .share-article a {
+        text-decoration: none;
+        margin-left: 5px;
+        border-bottom: none;
+        cursor: pointer;
+    }
+
+    .fb  img {
+        margin: auto 10px;
+    }
+
+
+
+    #title-wrapper {
+       display: flex;
+       min-height: 60vh;
+      
+       margin:auto;
+       background: url("cover2.jpg") ;
+    }
+
+    #title {
+        margin: auto;
+        max-width: 800px;
+    }
+
+    #title-wrapper h1 {
+        text-align: center;
+        font-size: calc(50px + 1vw);
+        color:rgb(211, 207, 207);
+       
+    }
+
+    #title-wrapper h3 {
+        text-align: center;
+        font-size: 22px;
+        text-transform: uppercase;
+        text-shadow: black 1px 1px 1px;
+        color:#F06070;
+    }
+ 
+
+    .article {
+        width: 96%;
+        max-width: 600px;
+        margin: auto;
+        font-family: sans-serif;
+        line-height: 1.5;
+    }
+
+    .story {
+        font-family: 'Open Sans', sans-serif;
+        background-color: black;
+        color: #a2a2a2;
+    }
+
+    #scroll {
+        grid-column: 1/-1;
+        position: relative;
+        width: 100%;
+        margin: 50px auto 50px auto;
+        display: grid;
+        grid-template-columns: 1.5fr 4fr 1.5fr;
+        grid-gap: 5px;
+    }
+
+
+    .scroll__graphic {
+        grid-column: 1/-1;
+        width: 100%;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        left: 0;
+        max-height: 95vh;
+        overflow-y: auto;
+        margin: 0 auto;
+        z-index: 0;
+    }
+
+    #chart {
+       width: 100%;
+    }
+
+    .scroll__text {
+        grid-column: 2/3;
+        margin: 0 auto;
+        z-index: 100;
+        /*position: relative;*/
+        pointer-events: none;
+         z-index: 1;
+         -webkit-transform: translate3d(0,0,0);
+    }
+
+    .step {
+        padding: 15px;
+        border: 1px solid grey;
+        height: max-content;
+        margin-bottom: 60vh;
+        background-color: rgba(0, 0, 0, 0.771);
+    }
+
+    .step div {
+        pointer-events: all;
+    }
+
+    .step div.photo_with {
+        pointer-events: all;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+    }
+
+    .step div.photo_with p {
+        width: 95%;
+    }
+
+    .step div.photo_without {
+        pointer-events: all;
+    }
+
+    .step div.photo_multiple {
+        pointer-events: all;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .step h2 {
+        margin-bottom: 5px;
+        font-size: 18px;
+        display: none;
+    }
+
+    .step p {
+        margin-top: 0;
+        font-size: 16px;
+    }
+
+    .step a {
+        color: #a2a2a2;
+        text-decoration: none;
+        border-bottom: #F06070 1px solid;
+    }
+
+
+    .colaborant, .transit-to {
+        color: #E76261;
+    }
+
+    h3.category-name {
+        text-transform: uppercase;
+        font-size: 11px;
+        margin: 10px 0 5px 0;
+    }
+
+    .step-description {
+        font-size: 11px;
+        text-align: left;
+    }
+
+    .empty-el {
+        width: 238px;
+        display: inline-block;
+    }
+
+    .step img {
+        display: block;
+        width: 96%;
+        margin: 0 auto 0 0;
+        max-width: 200px;
+    }
+
+    figcaption {
+        font-size: 11px;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+    
+     .svg-big {
+        display: block;
+    }
+
+    .svg-medium {
+        display: none;
+    }
+
+    .svg-mobile {
+        display: none;
+    }
+    
+    .from-to {
+        grid-column: 1/-1;
+        display: none;
+        margin-bottom: 8px;
+        font-size: 12px !important;
+        text-transform: uppercase;
+    }
+    
+    @media(max-width: 1100px){
+        .svg-big, .svg-mobile {
+            display: none
+        }
+
+        .svg-medium {
+            display: block;
+        }
+        
+        .from-to {
+            display: block;
+        }
+    }
+
+    @media(max-width: 500px) {
+        .svg-medium,
+        .svg-big {
+            display: none;
+        }
+
+        .svg-mobile {
+            display: block;
+        }
+        
+        .step div.photo_with {
+            display: block;
+        }
+
+         .step img, figcaption {
+             display: none;
+         }
+    }
+
+    @media(max-width: 800px) {
+        #scroll {
+            display: block;
+        }
+
+        .scroll__graphic {
+            top: 50px;
+        }
+        
+        .scroll__text {
+            width: 96%;
+            margin: auto;
+        }
+
+        #chart div {
+            font-size: 10px
+        }
+
+        .step {
+            margin-bottom: 90vh;
+        }
+
+        .step h2 {
+            display: block;
+            grid-column:1/-1;
+        }
+        
+        .last-step {
+            margin-bottom: 0!important;
+        }
+    }
+
+</style>
+<body>
+    <div class="share-article">
+    
+        <div class="sb fb"><a class="share-btn" href="https://www.facebook.com/sharer/sharer.php?u=https://incentre.zp.ua/melitopol-dataproject" target="_blank">
+            <img src="img/facebook.svg" alt="Тексти.org.ua - Facebook"></a>
+        </div>
+    
+        <div class="sb tw"><a class="share-btn" href="https://twitter.com/intent/tweet?text=https://incentre.zp.ua/melitopol-dataproject" target="_blank">
+            <img src="img/twitter.svg" alt="Тексти.org.ua - Twitter"></a>
+        </div>
+    
+        <div class="sb tl"><a class="share-btn" href="https://telegram.me/share/url?url=https://incentre.zp.ua/melitopol-dataproject" target="_blank">
+            <img src="img/telegram.svg" alt="Тексти.org.ua - Telegram"></a>
+        </div>
+    </div>
+
+
+    <div id="title-wrapper">
+        <div id="title">
+            <h1>Ключові структури очолили росіяни</h1>
+            <h3>Як окупанти вибудовують владну вертикаль у Мелітополі</h3>
+        </div>
+    </div>
+
+<div class="article">
+<p><em>Мелітополь &mdash; найбільше українське місто з уцілілою інфраструктурою, яке росіяни захопили в лютому 2022 року та яке досі перебуває окупованим. Важливу роль у становленні окупаційної влади там відіграв місцевий депутат облради Євгеній Балицький. Але на ключові посади росіяни привезли своїх кандидатів &mdash; очевидно, щоб бути впевненими в належному виконанні двох головних завдань: упокорення місцевого населення та використання цивільної інфраструктури для потреб російської армії.</em></p>
+</section>
+<p><em>Силові структури (суд, прокуратура, поліція) очолили громадяни Росії: прокурор з Хабаровська, який прославився жорстким придушенням протестів; &ldquo;казак&rdquo;-рекетир-шахрай з Петербурга тощо.</em></p>
+<p><em>Керувати важливим для постачання зброї залізничним вузлом у Мелітополі привезли перевіреного часом українського зрадника, який за 8 років довів прихильність до росіян в окупованому Донецьку. А міський відділ охорони здоров&rsquo;я перетворили на міністерство напівокупованої Запорізької області &mdash; щоб захопити лікарняну інфраструктуру, викрасти цінне обладнання, перетворити лікарні та поліклініки на військові госпіталі. &ldquo;Міністром&rdquo; теж зробили росіянина. Але розповімо детальніше, як вони вибудовували вертикаль міської влади.</em><br /><br /><em>Це спільний проєкт <a href="https://texty.org.ua">ТЕКСТІВ</a> і </em><a href="https://incentre.zp.ua/"><em>Запорізького центру журналістських розслідувань</em></a><em>.</em></p>
+
+</p>
+</div>
+<section class="story">
+    <section id='scroll'>
+        <div class='scroll__graphic sticky'>
+            <div id="chart"></div>
+        </div>
+
+
+        <div class='scroll__text'>
+            <div class="step" data-date="2022-02-24">
+                <div>
+                    <h2>24/02/2022</h2>
+                    <p>"Російська армія увійшла Мелітополь вже 24 лютого. Штурмові БТГр рушили на північ, до Василівки й
+                        Енергодару. За зміну влади в місті на початку березня взялися СОБРівці з Росгвардії і офіцери з
+                        ФСБ
+                        "</p>
+                        <br>
+                        <p class="colaborant">Гортайте униз, щоб подивитись усю історію</p>
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-03-12">
+                <div class="photo_with">
+                    <h2>12/03/2022</h2>
+                     <p class="from-to">
+                         <span class="transit-from">Міський голова ➟ </span> <span class="transit-to">Глава администрации города Мелитополь</span>
+                         </p>
+                    <p>Наступного дня після викрадення чинного мера Мелітополя Івана Федорова окупанти призначили
+                        "гауляйтера" — <span class="colaborant">Галину Данильченко</span>. Раніше вона була депутаткою Мелітопольської міськради від
+                        "Опозиційного блоку", багато років працювала на Мелітопольскому заводі підшипників, що належав
+                        депутату Запорізької обласної ради від ОПЗЖ Євгену Балицькому.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/danilchenko.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-03-16">
+                <div class="photo_with">
+                    <h2>16/03/2022</h2>
+                    <p class="from-to">
+                       <span class="transit-from">Начальник управління освіти ➟ </span> <span class="transit-to">Министр Министерства образования и науки</span>
+                         </p>
+                    <p>Міське управління освіти перетворилося в "Министерство образования Запорожской области".
+                        Міністеркою стала колишня директорка мелітопольського коледжу, що сама зголосилася зайняти цю
+                        посаду — це одна з перших закритих окупантами вакансій у міській владі. Пізніше <span class="colaborant">Олена Шапурова</span>
+                        погрожувала вчителям, що відмовлялися співпрацювати з окупантами, та батькам, що не відпускали
+                        дітей вчитися за російською програмою.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/shapurova.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-03-17">
+                <div class="photo_with">
+                    <h2>17/03/2022</h2>
+                    <p class="from-to">
+                      <span class="transit-from">Заступник начальника управління освіти ➟ </span> <span class="transit-to">Замминистра Министерства образования и науки</span>
+                    </p>
+                    <p>Заступницею "Министра образования" стала <span class="colaborant">Вікторія Костроміна</span>, що раніше працювала з Оленою
+                        Шапуровою в тому ж коледжі. Вона отримала призначення наступного дня.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/kostomina.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-05-02">
+                <div class="photo_with">
+                    <h2>02/05/2022</h2>
+                     <p class="from-to">
+                         <span class="transit-from">Директор департаменту капітального будівництва та ЖКГ  ➟ </span> <span class="transit-to">Директор департамента капстроительства и ЖКХ</span>
+                     </p>
+                     <p class="from-to">
+                         <span class="transit-from">Начальник фінансового управління ➟ </span> <span class="transit-to">Начальник финансового управления</span>
+                     </p>
+                    <p>Призначені в один день <span class="colaborant">Олена Кумоняєва</span> та <span class="colaborant">Олексій Тегімбаєв</span> насправді не припиняли свою роботу у
+                        міськраді з першого дня окупації — вони зголосилися залишитися на своїх посадах, передали
+                        окупантам інформацію про роботу своїх підрозділів. Кумоняєва — наближена до кола
+                        нардепа-колаборанта Євгена Балицького</p>
+                    <div>
+                        <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/tegimbayev.jpg" />
+                        <figcaption> Олексій Тегімбаєв</figcaption>
+                    </div>    
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-05-04">
+                <div class="photo_with">
+                    <h2>04/05/2022</h2>
+                    <p class="from-to">
+                         <span class="transit-from">Директор КП "Водоканал" ➟ </span> <span class="transit-to">Директор Мунициального предприятия "Водоканал-Мелитополь"</span>
+                         </p>
+                    <p>Призначений керувати міськводоканалом <span class="colaborant">Юрій Онищук</span> — в політиці з 2010 року. До окупації був
+                        депутатом міськради від "Опозиційного блоку" з команди Євгена Балицького, послідовно займав
+                        проросійську позицію. Очолював ТОВ "Наш ЖЕК", ще раніше був заступником міського голови
+                        Мелітополі, очолював комісію з комунальної власності, був фігурантом корупційних скандалів</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/onyschuk.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-05-12">
+                <div class="photo_with">
+                    <h2>04/05/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник управління комунальної власності ➟ </span> <span class="transit-to">Начальник управления коммунальной собственности</span>
+                    </p>
+                    <p><span class="colaborant">Дмитро Трухін</span> раніше був депутатом Мелітопольської міськради від "ОПЗЖ", в політиці з 2010 року.
+                        Під час окупації займався захопленням земельних ділянок. Був ліквідований 15 листопада 2022
+                        року.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/trukhin.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-05-30">
+                <div class="photo_with">
+                    <h2>30/05/2022</h2>
+                     <p class="from-to">
+                         <span class="transit-from">Директор КП "Житломасив" ➟ </span> <span class="transit-to">Руководитель КП "Жилмассив" </span>
+                     </p>
+                    <p><span class="colaborant">Андрій Хрущ</span> займав аналогічну посаду в Мелітополі у 2016 році. Після призначення окупантами Хрущ
+                        разом з Олексієм Тегімбаєвим (начальником управління комунальної власності і капітального
+                        будівництва) займалися відновленням пам'ятника Леніну у Мелітополі.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/khrusch.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-06-21">
+                <div class="photo_with">
+                    <h2>21/06/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник залізничної станції "Мелітополь" ➟ </span> <span class="transit-to">Руководитель Госпредприятия «Мелитопольская железная дорога»</span>
+                    </p>
+                    <p><span class="colaborant">Олексія Єфремова</span>, що очолив новостворене окупантами підприємство, окупанти прислали з Донецька.
+                        Там він раніше був заступником директора "Госпредприятия" Донецкая железная дорога" (вкрадена у
+                        2014 році ділянка Укрзалізниці).</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/efremov.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-07-14">
+                <div class="photo_with">
+                    <h2>21/06/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник управління культури та молоді ➟ </span> <span class="transit-to">Директор департамента культуры, спорта и молодёжи г. Мелитополь</span>
+                        </p>
+                    <p><span class="colaborant">Костянтин Зайцев</span> — родич зрадника Євгена Балицького (депутата Запорізької облради). Зайцев
+                        одружений з племінницею Балицького. Зайцев також очолює КП «Мелитопольский центральный парк
+                        имени Горького» </p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/zayzev.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-07-26">
+                <div class="photo_with">
+                    <h2>26/07/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Мелітопольський міський відділ Нацполіції України ➟ </span> <span class="transit-to">Руководитель УВД по Мелитополю и Мелитопольскому району ГУВД по Запорожской области</span>
+                    </p>
+                    <p><span class="colaborant">Андрєй Жидков</span>, що приїхав з Санкт-Петербурга, називає себе співробітником ФСБ, отаманом казаків,
+                        керівником асоціації "Воїн", письменником. Але навіть офіційні російські ЗМІ ще у 2017 році
+                        назвали його шахраєм і самозванцем, а його "воїнів" — рекетирами.</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/zhudkov.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-08-12">
+                <div>
+                    <h2>12/08/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник залізничної станції "Мелітополь" ➟ </span> <span class="transit-to">Начальник ж/д станции "Мелитополь"</span>
+                    </p>
+                    <p><span class="colaborant">Оксана Дерябіна</span> раніше була заступницею начальника залізничної станції "Мелітополь". Очоливши
+                        станцію під час окупації, організовувала постачання російського озброєння та боєприпасів у
+                        північному напрямку та вивезення викраденого українського зерна у південному.</p>
+
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-08-25">
+                <div class="photo_with">
+                    <h2>25/08/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП "Чистота" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Чистота"</span>
+                    </p>
+                    <p class="from-to">    
+                        <span class="transit-from">Директор КП "Мелітополькомунтранс" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Мелитополькоммунтранс"</span> 
+                    </p>
+                    <p class="from-to">    
+                        <span class="transit-from">Директор КП "Міськсвітло" ➟ </span> <span class="transit-to">Директор Мунициального предприятия "Горсвет-Мелитополь"</span>
+                    </p>
+                    <p>Основна функція <span class="colaborant">Антона Трухіна</span> в окупаційній адміністрації — контроль та розподіл фінансових
+                        потоків.
+                        Про призначеного того ж дня <span class="colaborant">Михайла Совгиру</span> відомо лише те, що він — мелітополець, раніше
+                        працював у
+                        КП "Міськсвітло"</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/sovgyra.jpg" />
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-10-05">
+                <div>
+                    <h2>05/10/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник Мелітопольської державної податкової інспекції ➟ </span> <span class="transit-to">И.о.начальника Межрайонной инспекции (№3 и №4) ФНС по Запорожской области (2шт.)</span>
+                        </p>
+                    <p>Замість однієї податкової окупанти утворили в Мелітополі три "межрайонных" інспекції обласного
+                        підпорядкування. Одну з них очолив колишній підполковник міліції <span class="colaborant">Олександр Чебурахін</span>, якого в
+                        Україні вигнали після скандалу з "кришуванням" наркобізнесу. Іншу очолив <span class="colaborant">Вадим Вітер</span> — колишній
+                        полковник ЗСУ та очільник Токмацького військкомату. Про <span class="colaborant">Юлію Сазонову</span> відомо лише те, що вона з
+                        Мелітополя.</p>
+
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-10-22">
+                <div>
+                    <h2>22/10/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП "Мелітопольжитлосервіс" ➟ </span> <span class="transit-to">Руководитель КП "Мелитопольжилсервис" </span>
+                    </p>
+                    <p>Місцевий підприємець <span class="colaborant">Андрій Селютін</span> очолив не лише КП "Мелитопольжилсервис", а й комунальне підприємство, що
+                        контролює роботу місцевих ринків. Також Селютін має кілька власних підприємств, які зареєстрував
+                        у
+                        Росії</p>
+                </div>
+            </div>
+
+            <div class="step" data-date="2022-11-10">
+                <div class="photo_with">
+                    <h2>10/11/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Окружний прокурор Мелітопольської міської прокуратури ➟ </span> <span class="transit-to">Прокурор Запорожской области</span>
+                    </p>
+                    <p>Раніше <span class="colaborant">Кіріл Осіпчук</span> був прокурором у Хабаровську і придушував там протести проти затримання
+                        губернатора краю, потім у Ростовській області брав участь у розборках місцевого криміналітету,
+                        тероризуючи місцевих торгівців</p>
+                    <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/osypchuk.jpg" />
+                </div>
+
+            </div>
+
+            <div class="step" data-date="2022-11-24">
+                <div>
+                    <h2>24/11/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП "Комунальна власність" ➟ </span> <span class="transit-to">Руководитель КП "Коммунальная собственность"</span> 
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП ТРК "Мелітополь" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Цифровые технологии"</span>
+                    </p>
+                    <p><span class="colaborant">Євгєнія Шалигіна</span> привезли з Росії — щоб контролював місцеві медіа і телебаченння. Про очільницю
+                        КП
+                        "Коммунальная собственность" Тетяну Саєнко нічого не відомо</p>
+
+                </div>
+
+            </div>
+
+            <div class="step" data-date="2022-12-20">
+                <div class="photo_multiple">
+                    <h2>20/12/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник відділу охорони здоровʼя  ➟ </span> <span class="transit-to">Министр Минздрава Запорожской области</span>
+                    </p>    
+                    <p class="from-to">
+                        <span class="transit-from">Заступник начальника відділу охорони здоровʼя  ➟ </span> <span class="transit-to">Первая замминистра Минздрава Запорожской области / Замминистра Минздрава Запорожской области / Советник министра Минздрава Запорожской области</span>
+                    </p>
+                    <p style="grid-column: 1/-1">Міський відділ охорони здоров'я Маріуполя окупанти перетворили на "Министерство Запорожской
+                        области".
+                        Замість одного заступника начальника відділу стало два заступники міністра радник. "Министра" і
+                        його
+                        першу заступницю привезли з Росії — щоб грабувати українські лікарні та перетворювати їх на
+                        російські військові госпіталі.</p>
+                        <div>
+                            <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/alexandrov.jpg" />
+                            <figcaption>Боріс Александров</figcaption>
+                        </div>
+                        <div>
+                            <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/sklyana.jpg" />
+                            <figcaption>Ірина Склянна</figcaption>
+                        </div>
+                        <div>
+                            <img src="https://raw.githubusercontent.com/texty/melitopol_structure/main/photo/kuchkovy.jpg" />
+                            <figcaption>Віктор Кучковий</figcaption>
+                        </div>
+                </div>
+
+            </div>
+
+            <div class="step" data-date="2022-12-22">
+                <div>
+                    <h2>22/12/2022</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник управління соцзахисту населення ➟ </span> <span class="transit-to">Начальник управления соцзащиты населения</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник управління фізкультури і спорту ➟ </span> <span class="transit-to">Начальник департамента культуры и спорта</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП "Ритуальна служба "Ритуал" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Ритуальная служба"</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Директор ТОВ "Тепло-Мелітополь" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Тепло-Мелитополь"</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Директор КП "Аптеки МЛТ" ➟ </span> <span class="transit-to">Руководитель Муниципального предприятия "Аптеки МЛТ"</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Директор ПАТ "Мелітопольгаз" ➟ </span> <span class="transit-to">Руководитель Гос. унитарного предприятия "Мелитопольгаз"</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Начальник лінійного відділу на залізничній станції "Мелітополь" ➟ </span> <span class="transit-to">Руководитель Линейного отдела ГУВД по Запорожской области на транспорте</span>
+                    </p>
+                    <p class="from-to">
+                        <span class="transit-from">Голова Мелітопольського міськрайонного суду ➟ </span> <span class="transit-to">Руководитель Запорожского областного суда</span>
+                    </p>
+                    <p>Цього дня у російському реєстрі зафіксовано 8 призначень на ключові посади у Мелітополі:
+                        керівники
+                        комунальних підприємств, що відповідають за тепло- і газопостачання, ритуальні послуги та
+                        аптеки;
+                        начальники відділів соцзахисту і спорту; очільник залізничної поліції та суддя. </p>
+                </div>
+            </div>
+
+            <div class="step last-step" data-date="2023-02-10">
+                <div>
+                    <h2>10/02/2023</h2>
+                    <p class="from-to">
+                        <span class="transit-from">Директор департаменту реєстраційних послуг ➟ </span> <span class="transit-to">Директор многофункционального центра гос- и муниципальных услуг "Мои документы" </span>
+                    </p>
+                    <p>Окупанти з пафосом відкрили аналог українського ЦНАПу у приміщенні, відібраному в одного з
+                        українських банків. Керівника привезли з Росії. </p>
+                </div>
+            </div>
+
+            <!--<div class="step last-step" data-date="2023-02-11">-->
+            <!--    <div>-->
+            <!--        <p>Оксана Дерябіна була ліквідована. На деяких інших колаборантів було вчинено невдалі замахи</p>-->
+            <!--    </div>-->
+            <!--</div>-->
+        
+        </div>
+    </section>
+</section>
+
+<div class="article">
+<p>Росіяни зайшли в Мелітополь 24 лютого 2022 року. Штурмові БТГр, орієнтовані на швидке просування, рушили крізь місто далі на північ &mdash; до Василівки й Енергодара <em>(історію про захоплення Росією ЗАЕС та ядерний терор</em><a href="https://texty.org.ua/projects/108780/yadernij-teror-yak-rosiya-vzyala-v-zaruchnyky-aes-i-enerhodarciv/"><em>дивіться тут</em></a><em>)</em>. Упродовж першого тижня в Мелітополі майже нічого не змінилося.</p>
+<p>На початку березня підтягнулися СОБРівці з Росгвардії (спецзагони швидкого реагування &mdash; ред.) і офіцери з ФСБ. До міського голови Івана Федорова почали приходити росіяни разом з місцевими колаборантами й висувати якісь умови. Що саме вони йому пропонували &mdash; він відмовився розповідати, зіславшись на зайнятість.</p>
+<h2>&ldquo;Гауляйтерка&rdquo;</h2>
+<p>11 березня росіяни ув&rsquo;язнили на кілька днів Івана Федорова, який відмовився співпрацювати, &mdash; щоб згодом поміняти його на своїх полонених. За цей час з міста виїхало багато депутатів міськради, а з тих, що залишилися, погодилися співпрацювати лише кілька. Здебільшого це були представники проросійських партій і послідовні прихильники Росії. Хоча друга за часткою голосів у міськраді раді фракція ОПЗЖ теж переважно залишила Мелітополь упродовж весни.</p>
+<p>Наступного дня, 12 березня, росіяни назвали &ldquo;гауляйтера&rdquo; &mdash; &ldquo;головою військової адміністрації&rdquo; призначили Галину Данильченко. Вона одразу оголосила, що міськрада як представницький орган громади припиняє свою роботу. Це означало, що більшість місцевих депутатів відмовилася співпрацювати з окупантами або вже покинула місто. Лише семеро з 42 депутатів почали співпрацювати з РФ на різних посадах &mdash; пізніше міськрада на релокації в Запоріжжі позбавила їх повноважень.</p>
+<p>Вибір Галини Данильченко на роль &ldquo;гауляйтера&rdquo; міста можна пояснити просто: вона багато років працювала на Мелітопольському заводі підшипників, який належав депутату Запорізької обласної ради від ОПЗЖ Євгенію Балицькому. До речі, Запорізька облрада досі (кінець березня 2023 року) не позбавила його депутатських повноважень.</p>
+<h2>Джекпот для &ldquo;ватника&rdquo;</h2>
+<p>Балицький &mdash; один з тих діячів, чия проросійська позиція була добре відомою впродовж попередніх років, він її не приховував і вписувався в український політичний ландшафт завдяки підтримці проросійських виборців. Як і Віктор Медведчук, Володимир Сальдо та інші.</p>
+<p>Ще в нульових він кілька разів обирався до обласної ради від Партії регіонів, двічі був народним депутатом: спочатку від ПР у 2012-му, потім від Опозиційного блоку у 2014 році. Уже після 2014-го Балицький неодноразово називав чинну українську владу нелегітимною, хоча був нардепом. У російських медіа активно цитували його <a href="https://rg.ru/%202018/04/20/na-ukraine-vlast-poroshenko-sravnili-s-fashistskoj-okkupaciej.html">порівняння</a> Майдану з приходом до влади нацистів у Німеччині. Він поширював наративи російської пропаганди, <a href="https://ms.detector.media/%20propaganda-ta-vplivi/post/21425/2018-07-04-yak-stranaua-zobrazhaie-ukrainu-agresorom/">розповідаючи</a> про зовнішнє управління Україною.</p>
+<p>У Мелітополі сім&rsquo;ї Балицьких належало чимало бізнесу: місцева броварня, виробництво гідравлічних вузлів і підшипників, низка складів і комерційних приміщень. І як маркер локального олігарха з політичним впливом &mdash; місцевий телеканал &ldquo;МТВ-плюс&rdquo;. Але ці підприємства здебільшого були в занепаді та їх використовували для <a href="http://zp.nashigroshi.org/2017/08/11/politsiya-pyatyj-rik-rozbyrajetsya-z-pryvlasnennyam-ridnoyu-firmoyu-rodyny-balytskyh-2-miljoniv-kredytu-derzhbanku/">виведення кредитних коштів</a>.&nbsp;</p>
+<p>&mdash; Євгеній Балицький завжди був ідейним &ldquo;ватником&rdquo; і завжди хотів монетизувати свої погляди, &mdash; розповідає місцевий політолог Роман П&rsquo;ятигорець, голова Запорізького осередку Комітету виборців України. &mdash; Він усюди був готовий розповісти про ностальгію за СРСР, про братерство народів і про те, що &ldquo;діди воєвалі проти нацистів і бендерівців&rdquo;. До того ж волів отримувати за це гроші, нормальне стале фінансування &mdash; в нього ж були перед очима всі ці Медведчуки та інші освоювальники російських бюджетів. Свої бізнеси Балицький не розвивав &mdash; він брав кредити на те, що його династія &ldquo;намутила&rdquo; ще в 1990-х, і потроху їх проїдав. Балицький займався не бізнесом, а адмініструванням та освоєнням грошей.</p>
+<p>Водночас, за словами Романа, Балицький завжди прагнув автономності, навіть на номінально нижчих щаблях. Він був нардепом у 2012<strong>&ndash;</strong>2019 роках і міг би ще раз вибороти перемогу на своєму окрузі на позачергових виборах у 2019-му, якби доклав зусиль. Але бути &ldquo;багнетом фракції&rdquo; в парламенті йому здавалося менш привабливим, ніж очільником &ldquo;Оппоблоку&rdquo; в облраді, з яким мусить домовлятись обласна влада, який належить до більшості та щось вирішує в рідному місті, бо має свою фракцію.</p>
+<p>&mdash; Коли до Мелітополя зайшли росіяни, Балицький &ldquo;зірвав джекпот&rdquo;. Легітимний депутат обласної ради очолив адміністрацію окупантів, місто одразу почало отримувати бюджетні вливання з Росії. Мелітополь і до 24 лютого був одним з рекордсменів в Україні за субвенціями &ldquo;згори&rdquo;: це були сотні мільйонів гривень на інфраструктуру, на льодову арену, на охорону здоров&rsquo;я. Галина Данильченко у цій схемі &mdash; лише менеджерка Балицького, цілком залежна й несамостійна, &mdash; вважає П&rsquo;ятигорець.</p>
+
+<h2>&ldquo;Выйди, я один, поговорить надо&rdquo;</h2>
+<p>Мелітопольські міські депутати, як і голова, не хочуть говорити, що їм пропонували окупанти і як відбувалися ці розмови. Лише один з тих, хто виїхав з міста, погодився &mdash; на умовах анонімності. За його словами, до них приходили лояльні до Балицького депутати &mdash; на роботу чи просто під будинок, телефонуючи зі словами: &ldquo;Выйди, я один, поговорить надо&rdquo;.</p>
+<p>&mdash; Це були суто приватні розмови, без присутності росіян. З нами спілкувалися, скажімо так, наші колеги, вже колишні. Казали, що зараз треба лише залишитися в місті, робити свою роботу, не ходити з жовто-блакитними прапором, не кричати &ldquo;Слава Україні&rdquo; &mdash; і все буде нормально: і в депутатів, і у виборців. Що нас вважають саме частиною Росії чи &ldquo;Новоросії&rdquo; &mdash; тому тут усе має бути охайно, і буде ще більше грошей на різні тендери й на депутатські фонди, ніж було в Україні. Усе в дуже загальних фразах. Але ні я, ні жоден з відомих мені колег не переходили до наступного рівня перемовин, уже з росіянами, не виявили лояльності.<br /><br />Цікаво, що перемовини були саме від імені Балицького, а не від імені Данильченко чи росіян. Імовірно, за Балицьким залишили загалом кадрові призначення щодо міської влади.</p>
+<p>&mdash; Коли я згадую перші дні вторгнення, то розумію, що Балицький точно знав, що воно буде, &mdash; ділиться міркуваннями Михайло Кумок, мелітопольський видавець і медіаменеджер. Навесні росіяни ув&rsquo;язнили його за проукраїнську позицію, а згодом випустили, і він виїхав в Ізраїль до родичів.</p>
+<p>&mdash; Але навряд чи Балицький казав про це своєму оточенню, навіть найближчому, &mdash; веде далі Кумок. &mdash; Загалом у нього досить невелика команда, доволі небагато людей, яких є куди ставити на посади в міській владі&hellip; Щодо Данильченко, то вона цілком залежна від Балицького й не здатна щось робити самостійно. Усі ці роки вона була менеджеркою різних бізнесів Балицького. Стати мером чималого міста &mdash; абсолютно не її рівень і не її компетенція.</p>
+<p>Загалом, на думку Михайла Кумка, серед посадовців, які почали співпрацювати з росіянами, зовсім небагато тих, хто усвідомлює свою зону відповідальності. Серед досвідчених він назвав Юрія Онищука (водоканал) і Костянтина Тюріна (тепломережі).</p>
+<h2>З коледжу &mdash; в &ldquo;міністерство&rdquo;</h2>
+<p>Переформатування окупаційної влади в перші тижні для деяких колаборантів стало нечуваним вікном можливостей. На початку березня до Балицького прийшла Олена Шапурова, директорка місцевого Промислово-економічного коледжу, й пообіцяла, що на посаді керівника міської освіти зробить усе, що росіянам потрібно.</p>
+<p>Вона відразу отримала посаду Міністра освіти і карт-бланш тиснути на освітян, від яких вимагала перевести школи на російську програму. Міське управління освіти окупанти перетворили на &ldquo;Министертво Запорожской области&rdquo;, оскільки Мелітополь &mdash; найбільше серед захоплених у Запорізькій області міст, яке окупанти використовують як &ldquo;временную столицу&rdquo; (бо ж роспропаганда невпинно обіцяє &ldquo;звільнити&rdquo; й Запоріжжя).<br /><br />Шапурова, як і обіцяла, старалася щосили: доходило до<a href="https://www.ukrinform.ua/rubric-regions/3445771-u-melitopoli-vikrali-troh-direktoriv-skil-aki-vidmovilis-spivpracuvati-iz-vorogom.html">вивезення</a> директорів шкіл за місто в невідомому напрямку, щоб вони самі добирались 20 км чи 30 км до дому.</p>
+<h2>&ldquo;Колаборанти&rdquo;-заробітчани</h2>
+<p>Окрім місцевих чиновників рівня начальників відділів та їхніх заступників, в окупаційну владу прийшли представники бізнесу, пов'язаного з міськими й комунальними послугами. Серед них був, наприклад, власник однієї з місцевих фірм-перевізників, нещодавно підірваний в авто Іван Ткач, якого поставили керувати транспортом &mdash; і в місті, й у всій окупованій області.&nbsp;</p>
+<p>На рівні комунальних підприємств, де рухаються &ldquo;живі гроші&rdquo;, &ldquo;пощастило&rdquo; місцевій сім&rsquo;ї Трухіних (вони лише однофамільці &ldquo;Слуги народу&rdquo;, який хотів &ldquo;піти в ліс тіхонєчко&rdquo;).&nbsp;</p>
+<p>Дмитро Трухін багато років був депутатом міськради: від Компартії, від &ldquo;Нашого краю&rdquo; й від ОПЗЖ. Його основним бізнесом були операції з комунальним майном, землею, охоронні послуги й похоронний бізнес &mdash; типовий набір наближеного до влади ділка нульових років. Кілька років тому Трухіна звільнили з посади директора КП &ldquo;Комунальна власність&rdquo; за розкрадання майна, однак після повномасштабної війни він повернувся до комунального підприємства. 15 листопада постраждав під час вибуху в Мелітополі, його госпіталізували до лікарні в &ldquo;надважкому стані&rdquo;, але він не помер.&nbsp;</p>
+<p>Його брат Антон Трухін теж вписався в окупаційну владу й очолив одразу кілька комунальних підприємств: КП &ldquo;Чистота&rdquo;, &ldquo;Мелітополькомунтранс&rdquo; і &ldquo;Умвельт-Мелітополь&rdquo;.&nbsp;</p>
+<p>Їхня сестра Світлана Назина при окупантах зробила кар&rsquo;єрний стрибок від викладачки вокалу до директорки Палацу культури залізничників. Вона однією з перших перейшла на навчання за стандартами РФ, змушуючи викладачів та учнів оспівувати російський режим під час організованих окупантами міських свят &mdash; щоб створити картинку для роспропаганди.&nbsp;</p>
+<p>Ще один &ldquo;генератор кешу&rdquo; &mdash; муніципальна мережа КП &ldquo;Аптеки МЛТ&rdquo; &mdash; дісталася подружжю Доломанів. Директорка комунального підприємства Наталя Доломан одразу почала співпрацювати з окупантами.&nbsp;</p>
+<p>Місцеві мешканці розповідають, що Наталія Доломан, яка мала у своєму розпорядженні комунальні аптеки міста, у березні 2022 року почала завозити дефіцитні позиції з Криму, Ростова й Краснодара та продавати їх у Мелітополі втричі дорожче, порівняно з довоєнними цінами. З допомогою колаборантки та за її безпосередньої участі окупанти почали "націоналізувати" приватні аптеки по всьому місту, грабуючи їхніх власників і позбавляючи їх права вести бізнес. Також її п<a href="https://ria-m.tv/news/294819/v_melitopole_za_vorovstvo_kollaborantka_chinovnitsa_lishilas_doljnosti_(foto).html">ідозрюют</a>ь у розкраданні державних коштів з рахунку НСЗУ &mdash; понад 1 млн грн.</p>
+<p>Чоловік Наталії, Роман Доломан, допомагав дружині та росіянам з &ldquo;націоналізацією&rdquo; аптек. Зі слів мелітопольців, він був &ldquo;навідником&rdquo; у цьому процесі. Також є відомості, що Роман Доломан особисто причетний до передачі російській контррозвідці відомостей про українських військових (зокрема тих, хто вже відслужив) та активістів, яких урешті схопили й катували. Доломан також обійняв офіційну посаду &mdash; директора ДЮСШ № 3, у якій узявся налагоджувати навчально-тренувальний процес відповідно до вимог окупаційної адміністрації.&nbsp;</p>
+<p>Обоє отримали російські паспорти.</p>
+<h2>Дедалі більше росіян</h2>
+<p>Але коли почали формувати &ldquo;уряд Запорізької області&rdquo;, у Балицького й Данильченко закінчилися свої кандидати. Без підтримки мерської команди й депутатського корпусу вони постали перед кадровим дефіцитом, який потроху почали заповнювати російські бюрократи, насамперед з окупованого Криму. Згодом до них доєдналися посадовці з інших частин Росії. Відповідно Балицький поступово втрачав вплив і вагу серед окупантів.</p>
+<p>&mdash; Російських посадовців упродовж року ставало дедалі більше, і зараз уже можна говорити, що Балицький контролює доволі небагато процесів, &mdash; вважає Кумок, який має свої джерела в рідному місті й на відстані відстежує ситуацію там. &mdash; Я бачу, що Росія хоче зробити Мелітополь &ldquo;парадним&rdquo; містом, у якому все чудово. Насамперед завдяки соціальним виплатам &mdash; уже зараз пенсіонери там отримують більше, ніж пенсіонери в Україні. Це доволі легко, адже більшість населення виїхала &mdash; у Мелітополі зараз лишається близько 40&ndash;45 % населення від довоєнних часів.</p>
+<h2>Силові структури &mdash; росіянам</h2>
+<p>Якщо інфраструктуру, гуманітарну сферу та життєзабезпечення залишили місцевим колаборантам, то на силові структури і пропаганду росіяни здебільшого одразу заводили свої кадри.</p>
+<p>Окупаційну поліцію очолює Андрій Жидков, уродженець Інти (Комі), який до приїзду в Мелітополь на початку повномасштабного вторгнення мешкав у Петербургу. Він називає себе президентом Асоціації співробітників силових структур &ldquo;Воїн&rdquo; і стверджує, нібито працював у спецслужбах РФ та воював у Чечні. Жидков полюбляє гучні титули на зразок &ldquo;лауреат &ldquo;Личности Петербурга&rdquo;, &ldquo;почетный гражданин&rdquo;, член спілки письменників Росії, отаман, майстер бойових мистецтв тощо. До 24 лютого він був одним з керівників петербурзької казацької організації &ldquo;Императорский конвой&rdquo;. Детальніше про інші регалії Жидкова &mdash; у <a href="https://incentre.zp.ua/voyn-na-zaporizhzhi-imena-okupantiv-yaki-piaryatsya-na-vijni/">статті</a> &ldquo;Запорізького центру розслідувань&rdquo;.&nbsp;</p>
+<p>Але навіть в офіційних російських ЗМІ, а саме в &ldquo;Ізвєстіях&rdquo;, ще у 2017 році Жидкова називали шахраєм, який ніколи не працював у ФСБ, а його &ldquo;асоціацію воїнів&rdquo; &mdash; бандою рекетирів.<br /><br />До приїзду Жидкова у серпні мелітопольською поліцією керував не менш одіозний місцевий діяч Олексій Селіванов &mdash; але його не було офіційно призначено на цю посаду. А в липні 2022 року його <a href="https://investigator.org.ua/news-2/245119/">&ldquo;посадили на підвал&rdquo;</a> самі ж росіяни, звинувативши в розбещенні неповнолітніх. Чи була це реальна причина його позбутися, чи формальна &mdash; невідомо.<br /><br />Як виявилося, православний монархіст у Мелітополі співмешкав з дівчиною, якій ледь виповнилось 15 років, і це була не перша така його історія. Коли скандал вийшов на публіку, з&rsquo;ясувалося, що навіть проросійські терористи з &ldquo;ветеранів Донбасу&rdquo; ще кілька років тому не дозволили Селіванову вступити до їхньої організації через цю злочинну пристрасть.</p>
+<h2>Прокурор, який уміє придушувати протести</h2>
+<p>Прокуратуру окупантів очолив кадровий прокурор. Про створення російських прокуратур на окупованих територіях України Росія заявила 7 листопада 2022 року. Окупаційну прокуратуру Запорізької області очолив Кирило Осипчук, <a href="https://ria-m.tv/news/303624/v_melitopol_na_doljnost_glavnogo_prokurora_feykovoy_strukturyi_prislali_vernogo_psa_putinskogo_rejima_(foto).html">пише</a> &ldquo;РіаМелітополь&rdquo;.</p>
+<p>Кирило Осипчук був головним прокурором Хабаровська. Після придушення протесту проти затримання губернатора краю Сергія Фургала став першим заступником прокурора вже в Ростовській області. Там він запам&rsquo;ятався блокадою Аксайських ринків, яку влаштували місцевим торгівцям понад 3,5 тис.і силовиків на замовлення представників бізнесу.</p>
+<h2>Окупантам потрібні госпіталі</h2>
+<p>Охорона здоров&rsquo;я стала важливим напрямом для росіян зовсім не тому, що вони переймалися турботою про пенсіонерів, які залишилися в окупації. Основна причина: лікарні і їхнє майно потрібні, щоб лікувати російських військових. Це зручно: поранених не треба везти в Росію чи Крим, а використовують наявну інфраструктуру й медичну техніку, змушуючи працювати лікарів, які залишилися на окупованих територіях.</p>
+<p>Формально реорганізація міського відділу охорони здоров&rsquo;я в &ldquo;міністерство&rdquo; завершилася в середині грудня 2022 року. Очолив цю структуру громадянин Росії &mdash; Борис Александров, його заступниками стали росіянка Олена Борчанінова й українка Ірина Склянна, а радником було призначено зрадника Віктора Кучкового.</p>
+<p>Віктор Кучковий родом з Донеччини. На відміну від інших, він уже мав досвід співпраці з окупантами: обіймав посаду &ldquo;міністра&rdquo; охорони здоров&rsquo;я в окупованому Донецьку. У захопленій частині Запорізької області Кучковий під керівництвом Александрова займався майном медзакладів. Зокрема він передав місцеві лікарні під шпиталь<a href="http://onlinecorrector.com.ua/%D1%88%D0%BF%D0%B8%D1%82%D0%B0%D0%BB%D1%8C-%D1%88%D0%BF%D0%B8%D1%82%D0%B0%D0%BB%D1%8C%D0%BD%D0%B8%D0%B9">,</a> щоб лікувати окупантів.</p>
+<p>Сам Борис Александров приїхав з Комі, де менш ніж рік обіймав аналогічну посаду в МОЗ.</p>
+<h2>Псевдореферендум відкрив шлях до росреєстрів</h2>
+<p>Довгий час посади в міській владі не були юридично оформленими, хоча фактично були зайнятими. Інтеграція в російський правовий простір пришвидшилася після проведеного восени псевдореферендуму. А в російському реєстрі юридичних осіб багато раніше призначених керівників, які фактично давно працювали, з&rsquo;явилися лише 20&ndash;22 грудня 2022 року.<br /><br />Чотири посади в міськвиконкомі Мелітополя окупанти не заповнили. Це начальник відділу контролю виконкому, начальник відділу кадрів виконкому, начальник відділу Держреєстру виборців і начальник відділу з інформаційних технологій та захисту інформації.</p>
+<p><em>Над проєктом працювали Сергій Сидоров, Маргарита Огнева, Вероніка Хорольська, Катерина Рождественська,</em><a href="https://texty.org.ua/author/inna-hadzynska/"><em>Інна Гадзинська</em></a><em>,</em><a href="https://texty.org.ua/author/nadja-kelm/"><em>Надя Кельм</em></a><em>,</em><a href="https://texty.org.ua/author/yevhenija-drozdova/"><em>Євгенія Дроздова</em></a><em>.</em></p>
+<p><em>Матеріал підготовлено за сприяння Фонду розвитку ЗМІ посольства США. Грантодавець не відповідає за думки та інформацію, викладені у статті.</em></p>
+</div>
+
+    <script>
+        const red = "#F06070";
+
+        d3.xml("https://raw.githubusercontent.com/texty/melitopol_structure/main/timeline.svg").then(function (data) {
+
+            d3.select("#chart")
+            .node()
+            .append(data.documentElement);  
+
+            d3.selectAll(".date-group").style("display", "none")
+        })
+        
+         d3.xml("https://raw.githubusercontent.com/texty/melitopol_structure/main/timeline_medium.svg").then(function (data) {
+
+            d3.select("#chart")
+            .node()
+            .append(data.documentElement)
+           
+
+            d3.selectAll(".date-group").style("display", "none")
+        }); 
+
+
+        d3.xml("https://raw.githubusercontent.com/texty/melitopol_structure/main/timeline_mobile.svg").then(function (data) {
+
+            d3.select("#chart")
+            .node()
+            .append(data.documentElement)
+            
+
+            d3.selectAll(".date-group").style("display", "none")
+        })
+
+        var container = document.querySelector('#scroll');
+        var graphic = document.querySelector('#scroll > .scroll__graphic');
+        var text = document.querySelector('#scroll > .scroll__text');
+        var step = document.querySelector('#scroll > .scroll__text > .step');
+        var scroller = scrollama();
+
+        function handleStepEnter(r) {
+            let theDate = $(r.element).data("date");
+
+            if(r.direction === "down") {
+                d3.selectAll("g#x"+theDate).style("display", "block")
+            } 
+            if(r.direction === "up") {
+                d3.selectAll("g#x"+theDate).style("display", "none")
+            }
+
+        }
+        
+        $( window ).resize(function(){
+                console.log("hey")
+                $(".story").get(0).scrollIntoView();
+                $(".date-group").css("display", "none")
+
+            })
+
+
+
+        function init() {
+            scroller.setup({
+                container: '#scroll',
+                graphic: '.scroll__graphic',
+                text: '.scroll__text',
+                step: '.scroll__text .step',
+                offset: 0.9,
+                debug: false,
+            })
+                .onStepEnter(handleStepEnter);
+
+        }
+        init();
+
+
+    </script>
+
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-18136548-1']);
+    _gaq.push(['_trackPageview']);
+    (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+</body>
+    </html>
